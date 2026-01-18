@@ -1,59 +1,176 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SchedulaPro
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema de agendamentos **multi-tenant (por empresa)** construído em **Laravel**.
 
-## About Laravel
+O objetivo do projeto é simular um produto real (**SaaS**), onde cada **Business** (empresa) gerencia seus **Services** (serviços) e **Appointments** (agendamentos).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📌 Status do Projeto
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- ✅ Infraestrutura com Laravel Sail (Docker)
+- ✅ Modelagem base: Businesses ↔ Users
+- ✅ Modelagem de agenda: Services ↔ Appointments
+- ⏳ Próximos passos: autenticação + CRUD + regras de conflito de horário
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🛠 Stack (Tecnologias)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Stack** é o conjunto de tecnologias usadas no projeto.
 
-## Laravel Sponsors
+- **PHP + Laravel**  
+  Framework principal para construir a aplicação web (rotas, controllers, validações, ORM).
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **Laravel Sail**  
+  Ambiente de desenvolvimento baseado em Docker (padroniza o setup, evita “na minha máquina funciona”).
 
-### Premium Partners
+- **Docker**  
+  Executa serviços (PHP, MySQL, etc.) em containers isolados.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- **MySQL**  
+  Banco de dados relacional.
 
-## Contributing
+- **Git + GitHub**  
+  Controle de versão, issues e PRs (fluxo similar ao de uma empresa).
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 📋 Requisitos
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Docker Desktop instalado e rodando  
+- WSL2 (para Windows)  
+- Git  
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## ▶️ Como rodar localmente (Setup)
 
-## License
+### 1️⃣ Clonar o repositório (SSH recomendado)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+git clone git@github.com:freitastech/schedulapro.git
+cd schedulapro
+```
+
+### 2️⃣ Subir os containers
+
+```bash
+./vendor/bin/sail up -d
+```
+
+### 3️⃣ Configurar a aplicação
+
+```bash
+./vendor/bin/sail artisan key:generate
+./vendor/bin/sail artisan migrate
+```
+
+### 4️⃣ Acessar no navegador
+
+http://localhost
+
+---
+
+## ⚙️ Comandos Úteis
+
+### Parar containers
+```bash
+./vendor/bin/sail down
+```
+
+### Recriar o banco do zero
+```bash
+./vendor/bin/sail artisan migrate:fresh
+```
+
+### Ver status das migrations
+```bash
+./vendor/bin/sail artisan migrate:status
+```
+
+### Abrir Tinker (REPL do Laravel)
+```bash
+./vendor/bin/sail artisan tinker
+```
+
+---
+
+## 🗄 Modelagem de Dados (Resumo)
+
+### Entidades
+
+- **businesses**  
+  Empresas/estabelecimentos (ex.: salão, clínica)
+
+- **users**  
+  Usuários (`admin`, `staff`, `client`)
+
+- **services**  
+  Serviços oferecidos por uma empresa
+
+- **appointments**  
+  Agendamentos (serviço + data/hora + participantes)
+
+### Relacionamentos
+
+- Business **1:N** Users  
+- Business **1:N** Services  
+- Business **1:N** Appointments  
+- Service **1:N** Appointments  
+- Appointment **belongsTo** User (`client_id`)  
+- Appointment **belongsTo** User (`staff_id`, nullable)
+
+### Observações Técnicas
+
+- `price_cents` armazena valor em centavos (evita erro de arredondamento com `float`)
+- `start_at` e `end_at` são `datetime`
+- `appointments` possui índices para consultas de agenda por empresa, staff e cliente
+
+---
+
+## 🔁 Fluxo de Trabalho (Padrão Empresa)
+
+### Branch Naming
+
+- `feat/...` → novas funcionalidades  
+- `fix/...` → correções  
+- `docs/...` → documentação  
+
+**Exemplo:**
+```text
+feat/s1-03-services-appointments
+```
+
+### Pull Requests
+
+- Toda mudança deve passar por PR
+- O PR deve referenciar a Issue correspondente:
+
+```text
+Closes #X
+```
+
+### Commits (Padrão Sugerido)
+
+- `feat: ...`
+- `fix: ...`
+- `docs: ...`
+- `chore: ...`
+
+---
+
+## 🗺 Roadmap (Próximas Issues)
+
+- Autenticação e autorização (roles: `admin`, `staff`, `client`)
+- CRUD de Services
+- CRUD de Appointments
+- Regra de conflito de horário  
+  (não permitir dois agendamentos no mesmo período para o mesmo staff)
+- Deploy (ex.: VPS/DigitalOcean + Nginx + MySQL)
+
+---
+
+## 📄 Licença
+
+Este projeto é **educacional / portfólio**.
