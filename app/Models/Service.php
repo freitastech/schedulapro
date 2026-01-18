@@ -8,9 +8,11 @@ class Service extends Model
 {
     protected $fillable = [
         'business_id',
-        'name'
+        'name',
+        'duration_minutes',
+        'price_cents',
+        'is_active',
     ];
-
     protected $casts = [
         'is_active' => 'boolean',
         'duration_minutes' => 'integer',

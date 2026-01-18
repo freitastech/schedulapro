@@ -24,10 +24,6 @@ return new class extends Migration
             $table->integer('price_cents');
             $table->boolean('is_active')->default(true);
 
-            $table->index(['business_id', 'start_at']);
-            $table->index(['staff_id', 'start_at']);
-            $table->index(['client_id', 'start_at']);
-
             $table->timestamps();
         });
     }
