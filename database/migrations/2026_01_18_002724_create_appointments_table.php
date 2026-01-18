@@ -36,6 +36,11 @@ return new class extends Migration
 
             $table->string('status')->default('scheduled');
 
+
+            $table->index(['business_id', 'start_at']);
+            $table->index(['staff_id', 'start_at']);
+            $table->index(['client_id', 'start_at']);
+
             $table->timestamps();
         });
     }

@@ -16,9 +16,7 @@ return new class extends Migration
             $table->foreignId('business_id')
                 ->constrained()
                 ->cascadeOnDelete();
-
-            $table->index('business_id');
-
+                
             $table->string('name');
             $table->integer('duration_minutes');
             $table->integer('price_cents');

@@ -15,7 +15,7 @@ class Appointment extends Model
         'end_at',
         'status',
     ];
-    
+
     protected $casts = [
         'start_at' => 'datetime',
         'end_at' => 'datetime',
