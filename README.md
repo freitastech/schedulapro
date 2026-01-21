@@ -68,7 +68,10 @@ cd schedulapro
 
 ### 4️⃣ Acessar no navegador
 
-http://localhost
+- URL local: http://localhost:8080
+- Login: /login
+- Porta Vite: 5173 (se você usa hot reload)
+- Observação sobre conflito com Apache na porta 80
 
 ---
 
