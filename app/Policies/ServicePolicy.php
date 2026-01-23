@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Service;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class ServicePolicy
 {
@@ -13,7 +12,7 @@ class ServicePolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -29,7 +28,7 @@ class ServicePolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
