@@ -44,4 +44,19 @@ class Appointment extends Model
     {
         return $this->belongsTo(User::class, 'staff_id');
     }
+
+    public static function hasStaffConflict(int $businessId, int $staffId, $startAt, $endAt, ?int $ignoreAppointmentId = null): bool
+    {
+        $query = static::query()
+            ->where('business_id', $businessId)
+            ->where('staff_id', $staffId)
+            ->where('start_at', '<', $endAt)
+            ->where('end_at', '>', $startAt);
+
+        if ($ignoreAppointmentId) {
+            $query->where('id', '!=', $ignoreAppointmentId);
+        }
+
+        return $query->exists();
+    }
 }
