@@ -49,12 +49,12 @@ class AppointmentController extends Controller
     {
         Appointment::create([
             'business_id' => $request->user()->business_id,
-            'service_id'  => $request->service_id,
-            'client_id'   => $request->client_id,
-            'staff_id'    => $request->staff_id,
-            'start_at'    => $request->start_at,
-            'end_at'      => $request->end_at,
-            'status'      => $request->status ?? 'scheduled',
+            'service_id' => $request->service_id,
+            'client_id' => $request->client_id,
+            'staff_id' => $request->staff_id,
+            'start_at' => $request->start_at,
+            'end_at' => $request->end_at,
+            'status' => $request->status ?? 'scheduled',
         ]);
 
         return redirect()

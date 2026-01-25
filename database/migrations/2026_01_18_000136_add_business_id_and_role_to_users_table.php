@@ -16,7 +16,7 @@ return new class extends Migration
                 ->after('id')
                 ->constrained('businesses')
                 ->cascadeOnDelete();
-                
+
             $table->string('role')->default('client');
         });
     }
