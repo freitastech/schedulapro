@@ -10,19 +10,19 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
 
                 @if (session('success'))
-                    <div class="mb-4 text-green-600">
-                        {{ session('success') }}
-                    </div>
+                <div class="mb-4 text-green-600">
+                    {{ session('success') }}
+                </div>
                 @endif
 
                 @if ($errors->any())
-                    <div class="mb-4 text-red-600">
-                        <ul class="list-disc pl-5">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+                <div class="mb-4 text-red-600">
+                    <ul class="list-disc pl-5">
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
                 @endif
 
                 <form method="POST" action="{{ route('services.store') }}" class="space-y-3">
@@ -47,26 +47,27 @@
                         </label>
                     </div>
 
-                    <button type="submit" class="px-4 py-2 bg-black text-white rounded">
+                    <button type="submit" class="px-4 py-2 bg-gray-800 text-white rounded">
                         Create
                     </button>
+
                 </form>
 
                 <hr class="my-6">
 
                 <ul class="space-y-2">
                     @foreach ($services as $service)
-                        <li class="flex items-center justify-between border rounded p-3">
-                            <span>{{ $service->name }}</span>
+                    <li class="flex items-center justify-between border rounded p-3">
+                        <span>{{ $service->name }}</span>
 
-                            <form method="POST" action="{{ route('services.destroy', $service) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="px-3 py-1 bg-red-600 text-white rounded">
-                                    Delete
-                                </button>
-                            </form>
-                        </li>
+                        <form method="POST" action="{{ route('services.destroy', $service) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="px-3 py-1 bg-red-600 text-white rounded">
+                                Delete
+                            </button>
+                        </form>
+                    </li>
                     @endforeach
                 </ul>
 

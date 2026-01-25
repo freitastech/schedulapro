@@ -1,11 +1,17 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServiceController;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('services', ServiceController::class)->except(['show', 'create', 'edit']);
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('services', ServiceController::class)->except(['show', 'create', 'edit']);
+    Route::resource('appointments', AppointmentController::class)->except(['show', 'create', 'edit']);
 });
 
 Route::get('/', function () {
@@ -22,4 +28,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
