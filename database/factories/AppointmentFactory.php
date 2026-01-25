@@ -23,7 +23,6 @@ class AppointmentFactory extends Factory
             'service_id' => Service::factory(),
             'client_id' => User::factory(),
             'staff_id' => $this->faker->boolean(80) ? User::factory() : null,
-
             'start_at' => $startAt,
             'end_at' => $endAt,
             'status' => 'scheduled',
@@ -48,6 +47,6 @@ class AppointmentFactory extends Factory
 
     public function withoutStaff(): static
     {
-        return $this->state(fn() => ['staff_id' => null]);
+        return $this->state(fn () => ['staff_id' => null]);
     }
 }
