@@ -3,9 +3,15 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\AppointmentController;
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('services', ServiceController::class)->except(['show', 'create', 'edit']);
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('services', ServiceController::class)->except(['show', 'create', 'edit']);
+    Route::resource('appointments', AppointmentController::class)->except(['show', 'create', 'edit']);
 });
 
 Route::get('/', function () {
