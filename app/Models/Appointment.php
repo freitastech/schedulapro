@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Builder;
 
 class Appointment extends Model
 {
@@ -43,5 +44,20 @@ class Appointment extends Model
     public function staff(): BelongsTo
     {
         return $this->belongsTo(User::class, 'staff_id');
+    }
+
+    public static function hasStaffConflict(int $businessId, int $staffId, $startAt, $endAt, ?int $ignoreAppointmentId = null): bool
+    {
+        $query = static::query()
+            ->where('business_id', $businessId)
+            ->where('staff_id', $staffId)
+            ->where('start_at', '<', $endAt)
+            ->where('end_at', '>', $startAt);
+
+        if ($ignoreAppointmentId) {
+            $query->where('id', '!=', $ignoreAppointmentId);
+        }
+
+        return $query->exists();
     }
 }
